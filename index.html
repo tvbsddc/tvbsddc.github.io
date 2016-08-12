@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+	
+	
+	
+});
+var arr = [];
+	var comments = [];
+	var keys = "http://news.tvbs.com.tw/travel/667649?utm_source=TVBS&utm_medium=eventpage&utm_campaign=tiger";
+	var count = 1;
+function getJSON(url){
+		$.get(url, function(data, status){
+			if(count==1){
+				if(data[keys]&&data[keys].comments){
+					arr.push(data[keys].comments.data);
+				}
+				//console.log(data[keys].comments.paging.next);
+				//document.write(JSON.stringify(arr));
+				if(data[keys]&&data[keys].comments.paging){
+					getJSON(data[keys].comments.paging.next);
+				}
+				count++;
+			}else{
+				if(data.data!=null){
+					arr.push(data.data);
+				}
+				if(data.paging&&data.paging.next!=''){
+					getJSON(data.paging.next);
+				}else{
+					for(var i=0;i<arr.length;i++){
+						for(var j=0; j<arr[i].length; j++){
+							comments.push(arr[i][j]);
+						}
+					}
+					
+					document.write(JSON.stringify(comments));
+				}
+			}
+			
+			//console.log("Data: " + data.comments.data + "\nStatus: " + status);
+		});
+	}
+	function clickTO(){
+		var token = $('#token').val();
+		getJSON("https://graph.facebook.com/comments/?ids=http%3A%2F%2Fnews.tvbs.com.tw%2Ftravel%2F667649%3Futm_source%3DTVBS%26utm_medium%3Deventpage%26utm_campaign%3Dtiger&access_token="+token);
+	}
+</script>
+</head>
+<body>
+	token<input type="text" id="token"/>
+	<button onclick="clickTO();">Submit</button>
+</body>
+</html>
