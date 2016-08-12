@@ -46,11 +46,14 @@ function getJSON(url){
 	}
 	function clickTO(){
 		var token = $('#token').val();
-		getJSON("https://graph.facebook.com/comments/?ids=http%3A%2F%2Fnews.tvbs.com.tw%2Ftravel%2F667649%3Futm_source%3DTVBS%26utm_medium%3Deventpage%26utm_campaign%3Dtiger&access_token="+token);
+		var url = encodeURIComponent($('#url').val());
+		getJSON("https://graph.facebook.com/comments/?ids="+url+"&access_token="+token);
 	}
 </script>
 </head>
 <body>
+	到 <a href="https://developers.facebook.com/tools/explorer/">https://developers.facebook.com/tools/explorer/</a> 複製 access token
+	url<input type="text" id="url" /><br />
 	token<input type="text" id="token"/>
 	<button onclick="clickTO();">Submit</button>
 </body>
