@@ -5,7 +5,7 @@
 <script>
 var arr = [];
 	var comments = [];
-	var keys = "http://news.tvbs.com.tw/travel/667649?utm_source=TVBS&utm_medium=eventpage&utm_campaign=tiger";
+	var keys = $('#url').val();
 	var count = 1;
 function getJSON(url){
 		$.get(url, function(data, status){
