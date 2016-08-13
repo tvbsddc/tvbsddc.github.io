@@ -5,10 +5,10 @@
 <script>
 var arr = [];
 	var comments = [];
-	var keys = $('#url').val();
 	var count = 1;
 function getJSON(url){
 		$.get(url, function(data, status){
+			var keys = $('#url').val();
 			if(count==1){
 				if(data[keys]&&data[keys].comments){
 					arr.push(data[keys].comments.data);
