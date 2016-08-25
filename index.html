@@ -9,7 +9,7 @@ var arr = [];
 function getJSON(url){
 		$.get(url, function(data, status){
 			var keys = $('#url').val();
-			if(count==1){
+			/*if(count==1){
 				if(data[keys]&&data[keys].comments){
 					arr.push(data[keys].comments.data);
 				}
@@ -19,22 +19,24 @@ function getJSON(url){
 					getJSON(data[keys].comments.paging.next);
 				}
 				count++;
-			}else{
+			}else{*/
 				if(data.data!=null){
-					arr.push(data.data);
+					for(var i=0;i<data.data.length;i++){
+						arr.push(data.data[i]);
+					}
 				}
 				if(data.paging&&data.paging.next!=''){
 					getJSON(data.paging.next);
 				}else{
-					for(var i=0;i<arr.length;i++){
+					/*for(var i=0;i<arr.length;i++){
 						for(var j=0; j<arr[i].length; j++){
 							comments.push(arr[i][j]);
 						}
-					}
+					}*/
 					
-					document.write(JSON.stringify(comments));
+					document.write(JSON.stringify(arr));
 				}
-			}
+			//}
 			
 			//console.log("Data: " + data.comments.data + "\nStatus: " + status);
 		});
