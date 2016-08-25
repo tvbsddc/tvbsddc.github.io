@@ -42,7 +42,10 @@ function getJSON(url){
 	function clickTO(){
 		var token = $('#token').val();
 		var url = encodeURIComponent($('#url').val());
-		getJSON("https://graph.facebook.com/comments/?ids="+url+"&access_token="+token);
+		var getObjUrl = "https://graph.facebook.com/v2.7/?id="+url+"&access_token="+token
+		$.get(getObjUrl, function(data){
+			getJSON("https://graph.facebook.com/v2.7/"+data.og_object.id+"/comments?access_token="+token);
+		});
 	}
 </script>
 </head>
